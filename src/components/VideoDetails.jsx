@@ -21,32 +21,31 @@ const VideoDetails = () => {
     // whenever id changes the method inside useEffect will be called
     useEffect(() => {
         document.getElementById("root").classList.add("custom-h");
-        fetchVideoDetails();
-        fetchRelatedVideos();
-    }, [id]);
-
-    // method to get all the details for the selected video from feed page
-    const fetchVideoDetails = () => {
-        setLoading(true);
-        fetchDataFromApi({ typeOfProcess: "video/details/", query: id }).then(
-            (res) => {
+        // method to fetch the related videos for the selected video from the feed page
+        const fetchRelatedVideos = () => {
+            setLoading(true);
+            fetchDataFromApi({
+                typeOfProcess: "video/related-contents/",
+                query: id,
+            }).then((res) => {
+                setRelatedVideos(res);
+                setLoading(false);
+            });
+        };
+        // method to get all the details for the selected video from feed page
+        const fetchVideoDetails = () => {
+            setLoading(true);
+            fetchDataFromApi({
+                typeOfProcess: "video/details/",
+                query: id,
+            }).then((res) => {
                 setVideo(res);
                 setLoading(false);
-            }
-        );
-    };
-
-    // method to fetch the related videos for the selected video from the feed page
-    const fetchRelatedVideos = () => {
-        setLoading(true);
-        fetchDataFromApi({
-            typeOfProcess: "video/related-contents/",
-            query: id,
-        }).then((res) => {
-            setRelatedVideos(res);
-            setLoading(false);
-        });
-    };
+            });
+        };
+        fetchVideoDetails();
+        fetchRelatedVideos();
+    }, [id, setLoading]);
 
     return (
         <div className="flex justify-center flex-row h-[calc(100%-56px)] dark:bg-black bg-white">
@@ -116,7 +115,7 @@ const VideoDetails = () => {
                 <div className="flex flex-col py-6 px-4 overflow-y-auto lg:w-[350px] xl:w-[400px]">
                     {relatedVideos?.contents?.map((item, index) => {
                         if (item?.type !== "video") {
-                            return;
+                            return false;
                         }
                         return (
                             <Suspense>

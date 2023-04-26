@@ -16,19 +16,18 @@ const SearchResult = () => {
     // every time use search something the method inside useEffect will be called
     useEffect(() => {
         document.getElementById("root").classList.remove("custom-h");
+        const fetchSearchResults = () => {
+            setLoading(true);
+            fetchDataFromApi({
+                typeOfProcess: "search/",
+                query: searchQuery,
+            }).then((res) => {
+                setResult(res?.contents);
+                setLoading(false);
+            });
+        };
         fetchSearchResults();
-    }, [searchQuery]);
-
-    const fetchSearchResults = () => {
-        setLoading(true);
-        fetchDataFromApi({
-            typeOfProcess: "search/",
-            query: searchQuery,
-        }).then((res) => {
-            setResult(res?.contents);
-            setLoading(false);
-        });
-    };
+    }, [searchQuery, setLoading]);
 
     return (
         <div className="flex flex-row h-[calc(100%-56px)]">

@@ -5,7 +5,7 @@ import ytLogo from "../images/yt-logo.png";
 import ytLogoMobile from "../images/yt-logo-mobile.png";
 
 import { SlMenu } from "react-icons/sl";
-import { IoIosSearch, IoMdSearch } from "react-icons/io";
+import { IoMdSearch } from "react-icons/io";
 import { RiVideoAddLine } from "react-icons/ri";
 import { FiBell } from "react-icons/fi";
 import { CgClose } from "react-icons/cg";
