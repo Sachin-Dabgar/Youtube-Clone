@@ -24,7 +24,7 @@ const Feed = () => {
                     {!loading &&
                         searchResults.contents &&
                         searchResults.contents?.map((item, index) => {
-                            if (item.type !== "video") return;
+                            if (item.type !== "video") return false;
                             return (
                                 <Suspense>
                                     <VideoCard
